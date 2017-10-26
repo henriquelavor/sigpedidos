@@ -13,7 +13,7 @@ import com.henriquelavor.sigpedidos.services.CategoriaService;
 @RestController
 @RequestMapping(value="/categorias")
 public class CategoriaResource {
-	//@Autowired para instanciar automaticamente
+	//@Autowired para instanciar automaticamente 
 	@Autowired
 	private CategoriaService service;
 	

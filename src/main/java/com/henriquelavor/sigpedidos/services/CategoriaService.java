@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.henriquelavor.sigpedidos.domain.Categoria;
 import com.henriquelavor.sigpedidos.repositories.CategoriaRepository;
+import com.henriquelavor.sigpedidos.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -14,6 +15,12 @@ public class CategoriaService {
 	
 	public Categoria buscar(Integer id) {
 		Categoria obj = repo.findOne(id);
+		
+		if (obj == null) {
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
+					+", Tipo: " + Categoria.class.getName());
+		}
+		
 		return obj;
 	}
 }
