@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.henriquelavor.sigpedidos.domain.Categoria;
 import com.henriquelavor.sigpedidos.domain.Cidade;
+import com.henriquelavor.sigpedidos.domain.Cliente;
+import com.henriquelavor.sigpedidos.domain.Endereco;
 import com.henriquelavor.sigpedidos.domain.Estado;
 import com.henriquelavor.sigpedidos.domain.Produto;
+import com.henriquelavor.sigpedidos.domain.enums.TipoCliente;
 import com.henriquelavor.sigpedidos.repositories.CategoriaRepository;
 import com.henriquelavor.sigpedidos.repositories.CidadeRepository;
+import com.henriquelavor.sigpedidos.repositories.ClienteRepository;
+import com.henriquelavor.sigpedidos.repositories.EnderecoRepository;
 import com.henriquelavor.sigpedidos.repositories.EstadoRepository;
 import com.henriquelavor.sigpedidos.repositories.ProdutoRepository;
 
@@ -31,6 +36,14 @@ public class SigpedidosApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
 	
 	
 	public static void main(String[] args) {
@@ -72,6 +85,18 @@ public class SigpedidosApplication implements CommandLineRunner{
 
 		estadoRepository.save(Arrays.asList(est1,est2));
 		cidadeRepository.save(Arrays.asList(c1,c2,c3));
+		
+		
+		Cliente cli1 = new Cliente(null, "Maria Gabriela","maria@gmail.com","36378912377", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("9536231178","95991611012"));
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "475", "Casa própria", "Centenário", "69305317", cli1, c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "69305000", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.save(Arrays.asList(cli1));
+		enderecoRepository.save(Arrays.asList(e1,e2));
 		
 		
 		
