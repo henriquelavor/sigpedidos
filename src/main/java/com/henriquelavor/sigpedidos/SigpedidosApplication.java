@@ -98,8 +98,6 @@ public class SigpedidosApplication implements CommandLineRunner{
 		clienteRepository.save(Arrays.asList(cli1));
 		enderecoRepository.save(Arrays.asList(e1,e2));
 		
-		
-		
 	}
 	
 	
