@@ -15,9 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable {
@@ -31,21 +29,17 @@ public class Pedido implements Serializable {
 	@JsonFormat(pattern="dd/MM/yyy hh:mm")
 	private Date instante;
 
-	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
 	private Pagamento pagamento;
 
-	@JsonManagedReference
 	@ManyToOne     //Muitos Pedidos para um Cliente
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
-	
 	
 	@ManyToOne     //Muitos Pedidos para um EnderecoDeEntrega
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
-	//    @JsonBackReference   //O Estado não pode serializar a Cidade
 	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();  //usando o Set(conjunto) para que o java 
 													//não permita que tenha Item repetido no mesmo pedido
@@ -58,7 +52,6 @@ public class Pedido implements Serializable {
 		super();
 		this.id = id;
 		this.instante = instante;
-		//this.pagamento = pagamento;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
@@ -135,7 +128,4 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-
 }
