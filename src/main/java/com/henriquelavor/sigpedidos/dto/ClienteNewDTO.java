@@ -7,7 +7,9 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.henriquelavor.sigpedidos.domain.Cliente;
+import com.henriquelavor.sigpedidos.services.validation.ClienteInsert;
 
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -21,15 +23,23 @@ public class ClienteNewDTO implements Serializable{
 	@Email(message="Email inválido")
 	private String email;
 	
+	@NotEmpty(message="Preenchimento obriatório")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@NotEmpty(message="Preenchimento obriatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obriatório")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento obriatório")
 	private String cep;
 	
+	@NotEmpty(message="Preenchimento obriatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
