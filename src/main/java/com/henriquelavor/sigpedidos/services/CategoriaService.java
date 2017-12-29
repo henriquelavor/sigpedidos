@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.henriquelavor.sigpedidos.domain.Categoria;
+import com.henriquelavor.sigpedidos.dto.CategoriaDTO;
 import com.henriquelavor.sigpedidos.repositories.CategoriaRepository;
 import com.henriquelavor.sigpedidos.services.exceptions.DataIntegrityException;
 import com.henriquelavor.sigpedidos.services.exceptions.ObjectNotFoundException;
@@ -57,6 +58,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 	
 }
