@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.henriquelavor.sigpedidos.domain.Categoria;
 import com.henriquelavor.sigpedidos.domain.Produto;
 import com.henriquelavor.sigpedidos.dto.ProdutoDTO;
 import com.henriquelavor.sigpedidos.resources.utils.URL;
