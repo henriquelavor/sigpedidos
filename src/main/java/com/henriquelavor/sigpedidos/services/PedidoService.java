@@ -2,7 +2,6 @@ package com.henriquelavor.sigpedidos.services;
 
 import java.util.Date;
 
-import org.apache.tomcat.util.http.fileupload.MultipartStream.ItemInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +9,7 @@ import com.henriquelavor.sigpedidos.domain.ItemPedido;
 import com.henriquelavor.sigpedidos.domain.PagamentoComBoleto;
 import com.henriquelavor.sigpedidos.domain.Pedido;
 import com.henriquelavor.sigpedidos.domain.enums.EstadoPagamento;
+import com.henriquelavor.sigpedidos.repositories.ClienteRepository;
 import com.henriquelavor.sigpedidos.repositories.ItemPedidoRepository;
 import com.henriquelavor.sigpedidos.repositories.PagamentoRepository;
 import com.henriquelavor.sigpedidos.repositories.PedidoRepository;
@@ -34,6 +34,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public Pedido find(Integer id) {
 		Pedido obj = repo.findOne(id);
 		
@@ -48,6 +51,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -59,10 +63,12 @@ public class PedidoService {
 		
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+			ip.setProduto(produtoRepository.findOne(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.save(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 }
