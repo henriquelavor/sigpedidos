@@ -3,7 +3,6 @@ package com.henriquelavor.sigpedidos.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,7 +13,6 @@ import com.henriquelavor.sigpedidos.domain.Produto;
 import com.henriquelavor.sigpedidos.repositories.CategoriaRepository;
 //import com.henriquelavor.sigpedidos.dto.ProdutoDTO;
 import com.henriquelavor.sigpedidos.repositories.ProdutoRepository;
-import com.henriquelavor.sigpedidos.services.exceptions.DataIntegrityException;
 import com.henriquelavor.sigpedidos.services.exceptions.ObjectNotFoundException;
 
 @Service
