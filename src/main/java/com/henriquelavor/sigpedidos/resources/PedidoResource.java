@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.henriquelavor.sigpedidos.domain.Categoria;
 import com.henriquelavor.sigpedidos.domain.Pedido;
-import com.henriquelavor.sigpedidos.dto.CategoriaDTO;
 import com.henriquelavor.sigpedidos.services.PedidoService;
 
 @RestController
