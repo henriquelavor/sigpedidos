@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import com.henriquelavor.sigpedidos.domain.Cidade;
 import com.henriquelavor.sigpedidos.domain.Cliente;
 import com.henriquelavor.sigpedidos.domain.Endereco;
+import com.henriquelavor.sigpedidos.domain.enums.Perfil;
 import com.henriquelavor.sigpedidos.domain.enums.TipoCliente;
 import com.henriquelavor.sigpedidos.dto.ClienteDTO;
 import com.henriquelavor.sigpedidos.dto.ClienteNewDTO;
 import com.henriquelavor.sigpedidos.repositories.CidadeRepository;
 import com.henriquelavor.sigpedidos.repositories.ClienteRepository;
 import com.henriquelavor.sigpedidos.repositories.EnderecoRepository;
+import com.henriquelavor.sigpedidos.security.UserSS;
+import com.henriquelavor.sigpedidos.services.exceptions.AuthorizationException;
 import com.henriquelavor.sigpedidos.services.exceptions.DataIntegrityException;
 import com.henriquelavor.sigpedidos.services.exceptions.ObjectNotFoundException;
 
@@ -38,6 +41,13 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			 throw new AuthorizationException("Acesso negado");
+		}
+		
 		Cliente obj = repo.findOne(id);
 		
 		if (obj == null) {
