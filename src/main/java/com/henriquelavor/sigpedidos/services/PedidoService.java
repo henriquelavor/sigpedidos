@@ -3,8 +3,12 @@ package com.henriquelavor.sigpedidos.services;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.henriquelavor.sigpedidos.domain.Cliente;
 import com.henriquelavor.sigpedidos.domain.ItemPedido;
 import com.henriquelavor.sigpedidos.domain.PagamentoComBoleto;
 import com.henriquelavor.sigpedidos.domain.Pedido;
@@ -14,6 +18,8 @@ import com.henriquelavor.sigpedidos.repositories.ItemPedidoRepository;
 import com.henriquelavor.sigpedidos.repositories.PagamentoRepository;
 import com.henriquelavor.sigpedidos.repositories.PedidoRepository;
 import com.henriquelavor.sigpedidos.repositories.ProdutoRepository;
+import com.henriquelavor.sigpedidos.security.UserSS;
+import com.henriquelavor.sigpedidos.services.exceptions.AuthorizationException;
 import com.henriquelavor.sigpedidos.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -74,5 +80,15 @@ public class PedidoService {
 		//System.out.println(obj);
 		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
+	}
+	
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente = clienteRepository.findOne(user.getId());
+		return repo.findByCliente(cliente, pageRequest);
 	}
 }
