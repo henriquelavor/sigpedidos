@@ -16,8 +16,8 @@ import com.henriquelavor.sigpedidos.services.S3Service;
 @RestController
 public class SigpedidosApplication extends SpringBootServletInitializer{
 	
-	@Autowired
-	private S3Service s3Service;
+	/*@Autowired
+	private S3Service s3Service;*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SigpedidosApplication.class, args);
@@ -30,7 +30,7 @@ public class SigpedidosApplication extends SpringBootServletInitializer{
 	
 	@RequestMapping(value="/")
 	public String demo() {
-		s3Service.uploadFile("/Users/henriquelavor/Downloads/henrique.jpg");
+		//s3Service.uploadFile("/Users/henriquelavor/Downloads/henrique.jpg");
 		return "Aplicação iniciada!";
 	}
 }
