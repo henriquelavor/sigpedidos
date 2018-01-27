@@ -120,7 +120,21 @@ public class ClienteService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile ) {
-		return s3Service.uploadFile(multipartFile);
+		
+		UserSS user = UserService.authenticated(); //novo: salvando URL da imagem em cliente
+		
+		if (user == null) { //novo: salvando URL da imagem em cliente
+			throw new AuthorizationException("Acesso negado"); //novo: salvando URL da imagem em cliente
+		}
+		
+		URI uri = s3Service.uploadFile(multipartFile); //novo: salvando URL da imagem em cliente
+		
+		Cliente cli = repo.findOne(user.getId()); //novo: salvando URL da imagem em cliente
+		cli.setImageUrl(uri.toString()); //novo: salvando URL da imagem em cliente
+		repo.save(cli); //novo: salvando URL da imagem em cliente
+		
+		return uri;  //novo: salvando URL da imagem em cliente
+		//return s3Service.uploadFile(multipartFile);
 	}
 
 }
