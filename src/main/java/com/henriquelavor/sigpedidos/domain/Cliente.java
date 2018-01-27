@@ -60,7 +60,7 @@ public class Cliente implements Serializable {
 		addPerfil(Perfil.CLIENTE); //todo Cliente por padrao terá o perfil de cliente
 	}
 	
-	private String imageUrl; //novo: salvando URL da imagem em cliente
+	//private String imageUrl; //novo: salvando URL da imagem em cliente AULA 81
 	
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
@@ -154,16 +154,17 @@ public class Cliente implements Serializable {
 		perfis.add(perfil.getCod());
 	}
 	
-
-	//novo: salvando URL da imagem em cliente
+	//novo: salvando URL da imagem em cliente AULA 81
+	/* 
 	public String getImageUrl() { 
 		return imageUrl;
 	}
 
-	//novo: salvando URL da imagem em cliente
+	
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+	*/
 
 	@Override
 	public int hashCode() {
