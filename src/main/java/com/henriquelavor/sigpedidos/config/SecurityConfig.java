@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// método informa quais os caminhos estaram liberados
 		public static final String[] PUBLIC_MATCHERS_GET = { 
 				"/produtos/**",
-				"/categorias/**"
+				"/categorias/**",
+				"/estados/**"
 		};
 		
 		
